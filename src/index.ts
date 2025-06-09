@@ -99,7 +99,6 @@ class Sound {
     RNSound.prepare(
       this._filename,
       this._key,
-      options ?? {},
       (error: string, props: SoundProps) => {
         if (props) {
           if (typeof props.duration === "number") {

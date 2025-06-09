@@ -177,43 +177,43 @@ RCT_EXPORT_METHOD(enableInSilenceMode:(BOOL)enabled) {
 
 #pragma mark - Audio Control Methods
 
-// RCT_EXPORT_METHOD(prepare:(NSString *)fileName key:(double)key options:(JS::NativeSoundIOS::SoundOptionTypes &)options callback:(RCTResponseSenderBlock)callback ) {
-//     NSError *error;
-//     NSURL *fileNameUrl;
-//     AVAudioPlayer *player;
+RCT_EXPORT_METHOD(prepare:(NSString *)fileName key:(double)key callback:(RCTResponseSenderBlock)callback ) {
+    NSError *error;
+    NSURL *fileNameUrl;
+    AVAudioPlayer *player;
     
-//     if ([fileName hasPrefix:@"http"]) {
-//         fileNameUrl = [NSURL URLWithString:fileName];
-//         NSData *data = [NSData dataWithContentsOfURL:fileNameUrl];
-//         player = [[AVAudioPlayer alloc] initWithData:data error:&error];
-//     } else if ([fileName hasPrefix:@"ipod-library://"]) {
-//         fileNameUrl = [NSURL URLWithString:fileName];
-//         player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileNameUrl
-//                                                         error:&error];
-//     } else {
-//         fileNameUrl = [NSURL URLWithString:fileName];
-//         player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileNameUrl error:&error];
-//     }
+    if ([fileName hasPrefix:@"http"]) {
+        fileNameUrl = [NSURL URLWithString:fileName];
+        NSData *data = [NSData dataWithContentsOfURL:fileNameUrl];
+        player = [[AVAudioPlayer alloc] initWithData:data error:&error];
+    } else if ([fileName hasPrefix:@"ipod-library://"]) {
+        fileNameUrl = [NSURL URLWithString:fileName];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileNameUrl
+                                                        error:&error];
+    } else {
+        fileNameUrl = [NSURL URLWithString:fileName];
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileNameUrl error:&error];
+    }
     
-//     if (player) {
-//         @synchronized(self) {
-//             player.delegate = self;
-//             player.enableRate = YES;
-//             [player prepareToPlay];
-//             NSNumber *myNumber = @(key);
-//             [[self playerPool] setObject:player forKey:myNumber];
-//             callback(@[
-//                 [NSNull null],
-//                 @{
-//                     @"duration": @(player.duration),
-//                     @"numberOfChannels": @(player.numberOfChannels)
-//                 }
-//             ]);
-//         }
-//     } else {
-//         callback(@[RCTJSErrorFromNSError(error)]);
-//     }
-// }
+    if (player) {
+        @synchronized(self) {
+            player.delegate = self;
+            player.enableRate = YES;
+            [player prepareToPlay];
+            NSNumber *myNumber = @(key);
+            [[self playerPool] setObject:player forKey:myNumber];
+            callback(@[
+                [NSNull null],
+                @{
+                    @"duration": @(player.duration),
+                    @"numberOfChannels": @(player.numberOfChannels)
+                }
+            ]);
+        }
+    } else {
+        callback(@[RCTJSErrorFromNSError(error)]);
+    }
+}
 
 RCT_EXPORT_METHOD(play:(double)key callback:(RCTResponseSenderBlock)callback) {
     [[AVAudioSession sharedInstance] setActive:YES error:nil];

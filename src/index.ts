@@ -377,15 +377,15 @@ class Sound {
 
   public static MAIN_BUNDLE = IsAndroid
     ? ""
-    : RNSound.getDirectories().MainBundlePath;
+    : "";
   public static DOCUMENT = IsAndroid
     ? ""
-    : RNSound.getDirectories().NSDocumentDirectory;
+    : "";
   public static LIBRARY = IsAndroid
     ? ""
-    : RNSound.getDirectories().NSLibraryDirectory;
+    : "";
   public static CACHES = IsAndroid
     ? ""
-    : RNSound.getDirectories().NSCachesDirectory;
+    : "";
 }
 export default Sound;
